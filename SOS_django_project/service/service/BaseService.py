@@ -6,9 +6,9 @@ class BaseService(ABC):
     def __init__(self):
         print("0")
 
-    def get(self, rid):
+    def get(self, mid):
         try:
-            r = self.get_model().objects.get( id = rid )
+            r = self.get_model().objects.get( id = mid )
             return r
         except self.get_model().DoesNotExist :
             return None
@@ -20,24 +20,23 @@ class BaseService(ABC):
         except self.get_model().DoesNotExist :
             return None
 
-    def save(self,role):
-        if(role.id == 0):
-            role.id = None
-        role.save()
+    def save(self,m_obj):
+        if(m_obj.id == 0):
+            m_obj.id = None
+        m_obj.save()
         
        
-    def delete(self,rid):
-        r = self.get(rid)
-        r.delete()       
+    def delete(self,mid):
+        m = self.get(mid)
+        m.delete() 
+        return m
 
-    def find_by_unique_key(self, rid):
+    def find_by_unique_key(self, mid):
         try:
-            r = self.get_model().objects.get( id = rid )
+            r = self.get_model().objects.get( id = mid )
             return r
         except self.get_model().DoesNotExist :
             return None
-
-
 
     @abstractmethod
     def get_model(self):
