@@ -6,10 +6,10 @@ class BaseService(ABC):
     def __init__(self):
         print("0")
 
-    def get(self, rid):
+    def get(self, pk):
         try:
-            r = self.get_model().objects.get( id = rid )
-            return r
+            m = self.get_model().objects.get( id = pk )
+            return m
         except self.get_model().DoesNotExist :
             return None
 
