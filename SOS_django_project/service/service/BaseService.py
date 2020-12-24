@@ -15,8 +15,8 @@ class BaseService(ABC):
 
     def search(self):
         try:
-            r = self.get_model().objects.all()
-            return r
+            mlist = self.get_model().objects.all()
+            return mlist
         except self.get_model().DoesNotExist :
             return None
 
@@ -30,14 +30,12 @@ class BaseService(ABC):
         r = self.get(rid)
         r.delete()       
 
-    def find_by_unique_key(self, rid):
+    def find_by_unique_key(self, colname,uid):
         try:
-            r = self.get_model().objects.get( id = rid )
-            return r
+            m = self.get_model().objects.filter(**{colname: uid})
+            return m
         except self.get_model().DoesNotExist :
             return None
-
-
 
     @abstractmethod
     def get_model(self):
